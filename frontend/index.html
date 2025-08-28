@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>LLM-Powered Mermaid Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="static/css/style.css" />
+
+  <!-- Prism core (ми використовуємо Prism Live, який сам ініціалізує підсвітку) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.9.0/themes/prism-one-light.css">
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+  <!-- Prism Live (contenteditable редактор з live-підсвіткою) -->
+  <script src="https://cdn.jsdelivr.net/npm/prism-live@1.4.0/prism-live.min.js"></script>
+
+  <!-- Mermaid -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>LLM-Powered Mermaid Diagram Editor</h1>
+    <p class="subtitle">Генеруйте та редагуйте Mermaid-діаграми локально (Ollama + FastAPI)</p>
+  </header>
+
+  <section class="controls">
+    <div class="row">
+      <textarea id="userText" placeholder="Введіть текст, з якого LLM має згенерувати діаграму..." spellcheck="false"></textarea>
+    </div>
+
+    <div class="row row-inline">
+      <label for="diagramType">Тип діаграми:</label>
+      <select id="diagramType">
+        <option value="flowchart" selected>Flowchart</option>
+        <option value="sequence">Sequence</option>
+        <option value="gantt">Gantt</option>
+        <option value="class">Class</option>
+        <option value="state">State</option>
+        <option value="er">ER</option>
+        <option value="journey">Journey</option>
+        <option value="pie">Pie</option>
+        <option value="timeline">Timeline</option>
+      </select>
+
+      <button id="generateBtn">Згенерувати діаграму</button>
+      <button id="exportBtn" class="secondary">Експортувати як PNG</button>
+      <button id="debugBtn" class="ghost">Зібрати debug-репорт</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mermaid-код</h2>
+    <!-- Prism Live редактор: contenteditable + live-підсвітка -->
+    <pre id="editor" class="prism-live language-markup" contenteditable="true"></pre>
+    <p class="hint">Порада: для Flowchart починайте з <code>graph TD</code> або <code>flowchart TD</code>. Для Sequence — <code>sequenceDiagram</code>.</p>
+  </section>
+
+  <section>
+    <h2>Візуалізація</h2>
+    <div id="diagram"></div>
+  </section>
+
+  <script src="static/js/main.js"></script>
+</body>
+</html>
